@@ -16,6 +16,7 @@
     "chai": "~1.7.2"
   },
   "dependencies": {
-    "findByPath": "git://github.com/ahultgren/findByPath.git#26a0be5e"
+    "findByPath": "git://github.com/ahultgren/findByPath.git#26a0be5e",
+    "reol": "~0.2.0"
   }
 }
