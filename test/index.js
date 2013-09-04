@@ -90,3 +90,38 @@ describe('global sync cache', function () {
     test(3, 5).should.equal(8);
   });
 });
+
+describe('cache update queue system', function () {
+  var i = 0,
+      arg = 'cuqs';
+
+  function fn (arg1, callback) {
+    i++;
+    setTimeout(callback.bind({}, arg1+1), 200);
+  }
+
+  var test = cache(fn);
+
+  it('calls original only once for multiple calls', function (next) {
+    var ii = 0;
+
+    test(arg, done);
+    test(arg, done);
+    test(arg, done);
+
+    function done (result) {
+      // If it always equals the same, the original function hasn't been recalled
+      i.should.equal(1);
+
+      if(++ii === 3) {
+        next();
+      }
+    }
+  });
+
+  it('still works even after the result has been fetched', function (next) {
+    test(arg, function (result) {
+      next();
+    });
+  });
+});

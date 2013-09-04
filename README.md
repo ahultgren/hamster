@@ -26,6 +26,7 @@ getData('yeah', resultHandler);
 * Promotes separation of concerns
 * TTL-support, clear caches after a certain time
 * LRU-support, pop the least recently updated cache when reaching a max number of cached results
+* Pontentially supports _any_ cache storage (for example redis)
 
 
 ## Philosophy
@@ -97,7 +98,8 @@ _more coming soon_
 ## Custom extensions
 
 Want to store the caches in redis instead of in-memory? Go ahead and implement
-.store, .hasCache, .addTimeout, and possibly any other methods on a cache instance.
+.store, .hasCache, .getCache, .addTimeout, and possibly any other methods on a
+cache instance.
 I will probably implement a neater api for this later.
 
 
