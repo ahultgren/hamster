@@ -125,3 +125,29 @@ describe('cache update queue system', function () {
     });
   });
 });
+
+describe('lru', function () {
+  var 
+      rounds = 0,
+      localCache = new cache.Cache({
+        lru: 1,
+        ttl: 0,
+        async: false
+      }),
+      test = localCache(function (arg1) {
+        rounds++;
+        return arg1 + 1;
+      });
+
+  it('caches the first call', function () {
+    test(1);
+    test(1);
+    rounds.should.equal(1);
+  });
+
+  it('kicks the first call when another one is made', function () {
+    test(2);
+    test(1);
+    rounds.should.equal(3);
+  });
+});
