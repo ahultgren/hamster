@@ -5,13 +5,13 @@
 var chai = require('chai'),
     should = chai.should(),
     expect = chai.expect,
-    cache = require('../.');
+    hamster = require('../.');
 
 
 /* Global instance
 ============================================================================= */
 
-describe('global cache instance', function () {
+describe('global hamster instance', function () {
   var timeout = 500;
 
   this.timeout(2000);
@@ -20,7 +20,7 @@ describe('global cache instance', function () {
     setTimeout(callback.bind({}, arg + 1), timeout);
   }
 
-  var test = cache(fn);
+  var test = hamster(fn);
 
   it('is callable', function (next) {
     test(3, function (result) {
@@ -53,7 +53,7 @@ describe('global cache instance', function () {
   });
 });
 
-describe('global sync cache', function () {
+describe('global sync hamster', function () {
   this.timeout(10000);
 
   function fn (arg1, arg2) {
@@ -64,7 +64,7 @@ describe('global sync cache', function () {
     return arg1 + arg2;
   }
 
-  var test = cache.sync(fn),
+  var test = hamster.sync(fn),
       firstTime;
 
   it('is callable', function () {
@@ -91,16 +91,16 @@ describe('global sync cache', function () {
   });
 });
 
-describe('cache update queue system', function () {
+describe('hamster update queue system', function () {
   var i = 0,
-      arg = 'cuqs';
+      arg = 'huqs';
 
   function fn (arg1, callback) {
     i++;
     setTimeout(callback.bind({}, arg1+1), 200);
   }
 
-  var test = cache(fn);
+  var test = hamster(fn);
 
   it('calls original only once for multiple calls', function (next) {
     var ii = 0;
@@ -129,7 +129,7 @@ describe('cache update queue system', function () {
 describe('lru', function () {
   var 
       rounds = 0,
-      localCache = new cache.Cache({
+      localCache = new hamster.Hamster({
         lru: 1,
         ttl: 0,
         async: false
@@ -139,7 +139,7 @@ describe('lru', function () {
         return arg1 + 1;
       });
 
-  it('caches the first call', function () {
+  it('hamsters the first call', function () {
     test(1);
     test(1);
     rounds.should.equal(1);

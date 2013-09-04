@@ -1,6 +1,6 @@
 "use strict";
 
-var Manager = require('./lib/Manager');
+var Hamster = require('./lib/Hamster');
 
-module.exports = new Manager();
-module.exports.Cache = Manager;
+module.exports = new Hamster();
+module.exports.Hamster = Hamster;
