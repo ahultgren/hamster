@@ -29,6 +29,23 @@ getData('yeah', resultHandler);
 * Pontentially supports _any_ cache storage (for example redis)
 
 
+## TOC
+
+* [Philosophy](#philosophy)
+* [Installation](#installation)
+* [API](#api)
+  * [hamster](#hamster-1)
+  * [hamster.Hamster](#hamster--new-hamsterhamsteroptions)
+  * [hamster()](#cache--hamsterfn-options)
+  * [hamster.sync()](#cache--hamstersync)
+  * [hamster.async()](#cache--hamsterasync)
+  * [cache()](#cache)
+  * [cache.original()](#cacheoriginal)
+* [Options](#options)
+* [Examples](#examples)
+* [Custom extensions](#custom-extensions)
+
+
 ## Philosophy
 
 When you use cache a function using `hamster(fn)`, a function is returned. You
