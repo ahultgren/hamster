@@ -70,29 +70,65 @@ app.use(function (req, res, next) {
 `npm install hamster`
 
 
-## Usage examples
-
-See the introduction for a basic example or the test folder for more advanced
-examples.
-
-
 ## API
 
-hamster(fn, options)
+#### `hamster`
 
-_more coming soon_
+A global instance of Hamster (see hamster() below).
+
+#### `hamster = new hamster.Hamster(options)`
+
+Creates a new instance of hamster with some setable options (see options below).
+
+#### `cache = hamster(fn, options)`
+
+An instance of Hamster, managing cached functions. Call it with a function to
+create a cache for that function. Returns a function that should replace the
+original function.
+
+#### `cache = hamster.sync()`
+
+A shorthand method for calling `hamster(fn, { async: false })`.
+
+#### `cache = hamster.async()`
+
+A shorthand method for calling `hamster(fn, { async: true })`.
+
+#### `cache()`
+
+Just use it as you would use the original function.
+
+#### `cache.original()`
+
+A reference to the original function, if you need to circumvent the cache.
 
 
 ## Options
 
 ```javascript
 {
-  async: true, // Set to false to cache synchronous functions
-  ttl: 10000, // How long before the cached result is cleared
-  maxSize: 50, // Max number of cached results
+  async: true, // Set to false to enable caching synchronous functions
+  ttl: 10000, // How long to wait before the cached result is cleared, in milliseconds
+  maxSize: 50, // Max number of cached results, the least recently used will be dropped when exeeding this limit
   keys: [] // Possibility to create a new cache only for certain arguments/properties
 }
 ```
+
+_A note on options.keys._ Let's say you supply the entire req object but for
+caching reasons the funciton is only interested in req.params.id. Then the
+following would consider requests to be the same if anything but req.params.id
+changes.
+
+```javascript
+// 0 for the first argument
+cache = hamster(fn, { keys: ['0.params.id'] });
+```
+
+
+## Examples
+
+See the introduction for a basic example or the test folder for more advanced
+examples.
 
 
 ## Custom extensions
