@@ -127,8 +127,38 @@ cache = hamster(fn, { keys: ['0.params.id'] });
 
 ## Examples
 
-See the introduction for a basic example or the test folder for more advanced
-examples.
+See the test folder for more examples.
+
+```javascript
+// Cache an ajax request. Will only request a post from the server the first time
+var getPost = hamster(function (id, callback) {
+  $.ajax({
+    url: '/posts/' + id,
+    success: callback
+  });
+}, {
+  ttl: 0
+});
+
+$('.toc a').on('click', function(e) {
+  e.preventDefault();
+  getPost($(this).attr('data-id'), function (data) {
+    renderPost(data);
+  });
+});
+```
+
+```javscript
+// Cache a custom mongoose method
+var getFull = hamster(function (model, id, callback) {
+  model.findById(id).populate('author').exec(callback);
+});
+
+postSchema.statics.getFull = function (id, callback) {
+  // This must be done since hamster doesn't support .bind() yet
+  getFull(this, id, callback);
+};
+```
 
 
 ## Custom extensions
