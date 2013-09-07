@@ -89,6 +89,9 @@ app.use(function (req, res, next) {
 
 `npm install hamster`
 
+See [releases](https://github.com/ahultgren/hamster/releases) for browserified
+source files.
+
 
 ## API
 
