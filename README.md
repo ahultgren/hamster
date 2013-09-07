@@ -1,8 +1,8 @@
 # Hamster
 
-_The ultimate cache module.  
-Completely unobtrusive and failsafe caching of anything.  
-Cache functions instead of data._
+_The ultimate Javascript cache module.  
+Unobtrusive and failsafe caching of anything.  
+Caches functions instead of data._
 
 
 ## But how?
@@ -44,6 +44,9 @@ getData('yeah', resultHandler);
 * [Options](#options)
 * [Examples](#examples)
 * [Custom extensions](#custom-extensions)
+* [Contribution](#contribution)
+* [TODO](#todo)
+* [License](#license)
 
 
 ## Philosophy
@@ -185,10 +188,27 @@ See the test folder for more examples.
 
 ## Custom extensions
 
-Want to store the caches in redis instead of in-memory? Go ahead and implement
-.store, .hasCache, .getCache, .addTimeout, and possibly any other methods on a
-cache instance.
-I will probably implement a neater api for this later.
+Want to store the caches in redis or localStorage instead of in-memory? Go ahead
+and implement .store, .hasCache, .getCache, .addTimeout, and possibly any other
+methods on a cache instance. I will probably implement a neater api for this
+later.
+
+
+## Contribution
+
+Create an issue first so I know what you're doing. Pull request to the develop
+branch. Test everything.
+
+
+## TODO
+
+AKA implemented when/if needed.
+
+* A way of expiring based on some other criteria than time. Eg number of calls
+  or some external change. Probably in the form of a .expireWhen() option.
+* A way to auto-update a cache instead of exipring. A must for very heavy work
+  which not even one client can wait for.
+* API for using custom storage mechanisms.
 
 
 ## License
