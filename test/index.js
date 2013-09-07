@@ -191,3 +191,32 @@ describe('function with context', function () {
     test1.should.have.property('original').and.be.a('function');
   });
 });
+
+describe('a short ttl', function () {
+  var cache = new hamster.Hamster({
+        ttl: 10
+      }),
+      called = 0;
+
+  function fn (arg1, callback) {
+    called++;
+    callback(arg1 + 1);
+  }
+
+  var test = cache(fn);
+
+  it('clears the cache', function (next) {
+    test(1, function () {
+      called.should.equal(1);
+    });
+
+    test(1, function () {
+      called.should.equal(1);
+
+      setTimeout(test.bind(null, 1, function () {
+        called.should.equal(2);
+        next();
+      }), 20);
+    });
+  });
+});
