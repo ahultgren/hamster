@@ -151,3 +151,43 @@ describe('lru', function () {
     rounds.should.equal(3);
   });
 });
+
+describe('function with context', function () {
+  function Class (arg1) {
+    this.arg1 = arg1;
+  }
+
+  Class.prototype.fn = function(arg2, callback) {
+    callback(this.arg1 + arg2);
+  };
+
+  var instance = new Class(10),
+      test1 = hamster(instance.fn),
+      test2 = hamster(instance.fn.bind(instance)),
+      test3 = hamster(instance.fn).bind(instance);
+
+  it('recieves the correct context with .call', function (next) {
+    test1.call(instance, 5, function (result) {
+      result.should.equal(15);
+      next();
+    });
+  });
+
+  it('receives the correct context with .bind on the fn', function (next) {
+    test2(10, function (result) {
+      result.should.equal(20);
+      next();
+    });
+  });
+
+  it('receives the correct context with .bind on the hamster', function (next) {
+    test3(15, function (result) {
+      result.should.equal(25);
+      next();
+    });
+  });
+
+  it('still has .original()', function () {
+    test1.should.have.property('original').and.be.a('function');
+  });
+});
