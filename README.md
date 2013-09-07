@@ -45,7 +45,7 @@ getData('yeah', resultHandler);
 * [Examples](#examples)
 * [Custom extensions](#custom-extensions)
 * [Contribution](#contribution)
-* [TODO](#todo)
+* [Todo](#todo)
 * [License](#license)
 
 
@@ -200,7 +200,7 @@ Create an issue first so I know what you're doing. Pull request to the develop
 branch. Test everything.
 
 
-## TODO
+## Todo
 
 AKA implemented when/if needed.
 
