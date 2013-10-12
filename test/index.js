@@ -263,4 +263,10 @@ describe('.clear()', function () {
     test(1);
     called.should.equal(2);
   });
+
+  it('should clear cache when called without params', function () {
+    test.clear();
+    test(1);
+    called.should.equal(3);
+  });
 });
