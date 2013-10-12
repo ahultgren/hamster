@@ -1,7 +1,8 @@
 {
   "name": "hamster",
-  "version": "0.0.1",
-  "description": "Cache the result of any function.",
+  "version": "0.1.0",
+  "description": "The ultimate Javascript cache module. Cache the result of any function.",
+  "keywords": ["cache", "memory", "function", "ttl", "lru"],
   "main": "index.js",
   "scripts": {
     "test": "make test"

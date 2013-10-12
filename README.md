@@ -99,11 +99,11 @@ source files.
 
 A global instance of Hamster (see hamster() below).
 
-#### `hamster = new hamster.Hamster(options)`
+#### `hamster = new hamster.Hamster([options])`
 
-Creates a new instance of hamster with some setable options (see options below).
+Creates a new instance of hamster with some customizable options (see options below).
 
-#### `cache = hamster(fn, options)`
+#### `cache = hamster(fn, [options])`
 
 An instance of Hamster, managing cached functions. Call it with a function to
 create a cache for that function. Returns a function that should replace the
@@ -124,6 +124,10 @@ Just use it as you would use the original function.
 #### `cache.original()`
 
 A reference to the original function, if you need to circumvent the cache.
+
+#### `cache.clear([key])`
+
+Clear all cached results (no key) or the result for a specific set of arguments.
 
 
 ## Options

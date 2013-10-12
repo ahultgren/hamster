@@ -220,3 +220,59 @@ describe('a short ttl', function () {
     });
   });
 });
+
+describe('.clear()', function () {
+  var cache = new hamster.Hamster({
+        ttl: 100,
+        async: false
+      }),
+      called = 0;
+
+  function fn (arg1) {
+    called++;
+    return arg1 + 1;
+  }
+
+  var test = cache(fn);
+
+  it('should work with a normal working cache', function (next) {
+    test(1).should.equal(2);
+    test(1).should.equal(2);
+    called.should.equal(1);
+
+    setTimeout(next, 60);
+  });
+
+  it('should not be cleared prematurely', function  () {
+    test(1).should.equal(2);
+    called.should.equal(1);
+  });
+
+  it('should clear cache when called', function (next) {
+    test.clear(test.makeKey({
+      0: 1
+    }));
+
+    test(1).should.equal(2);
+    called.should.equal(2);
+
+    setTimeout(next, 60);
+  });
+
+  it('should not double-clear', function () {
+    test(1);
+    called.should.equal(2);
+  });
+
+  it('should clear cache when called without params', function () {
+    test.clear();
+    test(1);
+    called.should.equal(3);
+  });
+
+  it('on the hamster instance should clear all caches', function () {
+    cache.clear();
+    test(1);
+    called.should.equal(4);
+  });
+});
