@@ -269,4 +269,10 @@ describe('.clear()', function () {
     test(1);
     called.should.equal(3);
   });
+
+  it('on the hamster instance should clear all caches', function () {
+    cache.clear();
+    test(1);
+    called.should.equal(4);
+  });
 });
