@@ -4,6 +4,8 @@ _The ultimate Javascript cache module.
 Unobtrusive and failsafe caching of anything.  
 Caches functions instead of data._
 
+`npm install hamster`
+
 
 ## But how?
 
@@ -51,11 +53,11 @@ getData('yeah', resultHandler);
 
 ## Philosophy
 
-When you use cache a function using `hamster(fn)`, a function is returned. You
+When you cache a function using `hamster(fn)`, a function is returned. You
 can use this function in exactly the same way as the original. No other part of
-your code should ever have to think about that the function is cached.
+your code should ever have to care about that the function is cached.
 
-Also the cached function itself should not and need not be modified with cache
+Also the cached function itself should not and need not be modified with caching
 in mind. The function should do what it does, callers should do what they do,
 while Hamster automagically takes care of the cache.
 
@@ -76,10 +78,12 @@ arguments it needs. For example:
 app.use(hamster(getUserData));
 
 // Do:
-getUserData = hamster(function...);
+getUserData = hamster(function(id){...});
+
 app.use(function (req, res, next) {
   getUserData(req.params.id, function (err, result) {
     req.user = result;
+    next();
   });
 });
 ```
